@@ -1,7 +1,8 @@
 spec:
   name: django-version1-saas-builder
   services:
-    - name: django-green
+    - dockerfile_path: compose/production/doap/Dockerfile
+      name: django-green
       github:
         branch: follow-eno-a3-django
         deploy_on_push: true
@@ -9,9 +10,9 @@ spec:
       http_port: 8080
       instance_count: 1
       instance_size_slug: basic-xs
-    routes:
-      - path: /
-    run_command: 'gunicorn --error-logfile /var/log/gunicorn.error --access-logfile /var/log/gunicorn.access --worker-tmp-dir /dev/shm composeexample.wsgi'
+      routes:
+        - path: /
+      run_command: "gunicorn --error-logfile /var/log/gunicorn.error --access-logfile /var/log/gunicorn.access --worker-tmp-dir /dev/shm composeexample.wsgi"
   databases:
     - cluster_name: db-postgresql-fra1-72665
       db_name: defaultdb

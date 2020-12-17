@@ -6,7 +6,9 @@ ENV PYTHONUNBUFFERED 1
 RUN apk update \
     # psycopg2 dependencies
     && apk add --virtual build-deps gcc python3-dev musl-dev \
-    && apk add postgresql-dev
+    && apk add postgresql-dev \
+    # CFFI dependencies: i have no idea what these do but allauth apparently depends on them
+    && apk add libffi-dev py-cffi
 
 RUN mkdir /code
 WORKDIR /code
