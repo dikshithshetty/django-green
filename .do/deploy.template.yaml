@@ -1,0 +1,22 @@
+spec:
+  name: django-version1-saas-builder
+  services:
+    - name: django-green
+      github:
+        branch: follow-eno-a3-django
+        deploy_on_push: true
+        repo: Oppoin/django-green
+      http_port: 8080
+      instance_count: 1
+      instance_size_slug: basic-xs
+    databases:
+      - cluster_name: db-postgresql-fra1-72665
+        db_name: defaultdb
+        db_user: doadmin
+        engine: PG
+        name: db-postgresql-fra1-72665
+        production: true
+        version: "10"
+    routes:
+      - path: /
+    run_command: 'gunicorn --error-logfile /var/log/gunicorn.error --access-logfile /var/log/gunicorn.access --worker-tmp-dir /dev/shm composeexample.wsgi'
