@@ -17,8 +17,8 @@ RUN pip install --upgrade pip
 # Requirements are installed here to ensure they will be cached.
 # COPY requirements.txt /code/
 # RUN pip install -r requirements.txt
-COPY ./requirements /code/
-RUN pip install -r /code/requirements/production.txt
+COPY /requirements /code/
+RUN pip install -r requirements/production.txt
 COPY . /code/
 
 # EXPOSE 8000
