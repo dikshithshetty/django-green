@@ -6,21 +6,11 @@ databases:
     name: db-postgresql-fra1-72665
     production: true
     version: "10"
-name: django-green
+name: django-version1-saas-builder
 region: fra
 services:
-  - dockerfile_path: Dockerfile
+  - dockerfile_path: compose/production/doap/Dockerfile
     envs:
-      - key: DJANGO_SECRET_KEY
-        scope: RUN_AND_BUILD_TIME
-        type: SECRET
-        value: EV[1:1qtdqQ+RCKdV0PqegpEoRhZNZCXnOa7o:WIEHDnuqp947VLwP4C8ol/sinVWnW2OqwLLBxK0v7ZyZ1zAlT6MhWv6oktuPU8Awuz9n0g==]
-      - key: DEBUG
-        scope: RUN_AND_BUILD_TIME
-        value: "True"
-      - key: DJANGO_ALLOWED_HOSTS
-        scope: RUN_AND_BUILD_TIME
-        value: ${APP_DOMAIN}
       - key: DATABASE_URL
         scope: RUN_TIME
         value: ${db-postgresql-fra1-72665.DATABASE_URL}
@@ -31,7 +21,7 @@ services:
     http_port: 8080
     instance_count: 1
     instance_size_slug: basic-xs
-    name: django-green
+    name: django-version1-saas-builder
     routes:
       - path: /
-    run_command: gunicorn --worker-tmp-dir /dev/shm composeexample.wsgi
+    run_command: gunicorn --error-logfile /var/log/gunicorn.error --access-logfile /var/log/gunicorn.access --worker-tmp-dir /dev/shm composeexample.wsgi

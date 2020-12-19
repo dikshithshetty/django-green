@@ -13,9 +13,12 @@ RUN apk update \
 RUN mkdir /code
 WORKDIR /code
 RUN pip install --upgrade pip
-COPY requirements.txt /code/
 
-RUN pip install -r requirements.txt
+# Requirements are installed here to ensure they will be cached.
+# COPY requirements.txt /code/
+# RUN pip install -r requirements.txt
+COPY ./requirements /code/
+RUN pip install -r /code/requirements/production.txt
 COPY . /code/
 
 # EXPOSE 8000
