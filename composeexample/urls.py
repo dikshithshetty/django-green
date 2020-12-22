@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import include, path, re_path
 
 urlpatterns = [
+    # needed by allauth
+    path("accounts/", include("allauth.urls")),
     path("", include("frontpage.urls")),
     path("admin/", admin.site.urls),
 ]
