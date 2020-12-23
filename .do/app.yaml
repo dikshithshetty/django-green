@@ -9,7 +9,7 @@ databases:
 name: django-version1-saas-builder
 region: fra
 services:
-  - dockerfile_path: compose/production/doap/Dockerfile
+  - dockerfile_path: compose/production/platform/doap/Dockerfile
     envs:
       - key: DATABASE_URL
         scope: RUN_TIME
