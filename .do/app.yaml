@@ -14,6 +14,16 @@ services:
       - key: DATABASE_URL
         scope: RUN_TIME
         value: ${db-postgresql-fra1-72665.DATABASE_URL}
+      - key: DJANGO_SECRET_KEY
+        scope: RUN_AND_BUILD_TIME
+        type: SECRET
+        value: EV[1:tpQ95donZpnniNE+tjAx0BRYv8eqn5Cr:6xURygv4M+5My+cofEWs3K2HUsPt5iFJM/iseKk3Ukrc3IMjZaW/4j4jkjinzq3U4a5esA==]
+      - key: DJANGO_ALLOWED_HOSTS
+        scope: RUN_AND_BUILD_TIME
+        value: ${APP_DOMAIN}
+      - key: DEBUG
+        scope: RUN_AND_BUILD_TIME
+        value: "False"
     github:
       branch: follow-eno-a3-django
       deploy_on_push: true
@@ -25,3 +35,17 @@ services:
     routes:
       - path: /
     run_command: gunicorn --error-logfile /var/log/gunicorn.error --access-logfile /var/log/gunicorn.access --worker-tmp-dir /dev/shm composeexample.wsgi
+static_sites:
+  - dockerfile_path: Dockerfile
+    envs:
+      - key: DATABASE_URL
+        scope: BUILD_TIME
+        value: ${db-postgresql-fra1-72665.DATABASE_URL}
+    github:
+      branch: follow-eno-a3-django
+      deploy_on_push: true
+      repo: Oppoin/django-green
+    name: django-green-static
+    output_dir: /code/staticfiles
+    routes:
+      - path: /django-green-static

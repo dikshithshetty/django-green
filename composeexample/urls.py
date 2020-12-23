@@ -16,10 +16,12 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.urls import include, path, re_path
+from frontpage.views import Home  # new
 
 urlpatterns = [
     # needed by allauth
     path("accounts/", include("allauth.urls")),
-    path("", include("frontpage.urls")),
+    # path("", include("frontpage.urls")),
+    path("", Home.as_view(), name="home"),  # new
     path("admin/", admin.site.urls),
 ]
