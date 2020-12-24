@@ -48,4 +48,4 @@ static_sites:
     name: django-green-static
     output_dir: /code/staticfiles
     routes:
-      - path: /django-green-static
+      - path: /static

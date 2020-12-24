@@ -23,6 +23,7 @@ COPY ./requirements /requirements
 RUN pip install -r /requirements/production.txt
 COPY . /code/
 
-# EXPOSE 8000
-
-# CMD ["python", "manage.py", "collectstatic"]
+# trigger the collectstatic via /start
+COPY ./compose/production/platform/doap/start /start
+RUN sed -i 's/\r//' /start
+RUN chmod +x /start
